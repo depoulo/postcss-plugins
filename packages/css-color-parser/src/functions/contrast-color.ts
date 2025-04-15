@@ -1,11 +1,12 @@
 import type { ColorData } from '../color-data';
 import type { ColorParser } from '../color-parser';
+import type { Color } from '@csstools/color-helpers';
 import type { FunctionNode } from '@csstools/css-parser-algorithms';
 import { ColorNotation } from '../color-notation';
 import { SyntaxFlag, colorData_to_XYZ_D50, convertNaNToZero } from '../color-data';
 import { isCommentNode, isWhitespaceNode } from '@csstools/css-parser-algorithms';
 import { XYZ_D50_to_sRGB_Gamut } from '../gamut-mapping/srgb';
-import { contrast_ratio_wcag_2_1 } from '@csstools/color-helpers';
+import { calcAPCA } from 'apca-w3';
 
 export function contrastColor(colorMixNode: FunctionNode, colorParser: ColorParser): ColorData | false {
 	let backgroundColorData: ColorData | false = false;
@@ -42,8 +43,10 @@ export function contrastColor(colorMixNode: FunctionNode, colorParser: ColorPars
 		syntaxFlags: new Set([SyntaxFlag.ContrastColor, SyntaxFlag.Experimental]),
 	};
 
-	const contrastWhite = contrast_ratio_wcag_2_1(backgroundColorData.channels, [1, 1, 1]);
-	const contrastBlack = contrast_ratio_wcag_2_1(backgroundColorData.channels, [0, 0, 0]);
+	const channelsInAPCANotation = backgroundColorData.channels.map(v => v * 255) as Color;
+
+	const contrastWhite = parseFloat(Math.abs(calcAPCA('white', channelsInAPCANotation) as number).toFixed(1));
+	const contrastBlack = parseFloat(Math.abs(calcAPCA('black', channelsInAPCANotation) as number).toFixed(1));
 
 	if (contrastWhite > contrastBlack) {
 		colorData.channels = [1, 1, 1];
