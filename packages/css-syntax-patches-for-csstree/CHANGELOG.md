@@ -1,8 +1,16 @@
 # Changes to CSS Syntax Patches For CSSTree
 
-### Unreleased (patch)
+### 1.0.11
 
-- Update `@webref/css` to [`v6.20.5`](https://github.com/w3c/webref/releases/tag/%40webref%2Fcss%406.20.5)
+_April 22, 2025_
+
+- Fix `display: -webkit-box`
+
+### 1.0.10
+
+_April 19, 2025_
+
+- Update `@webref/css` to [`v6.20.8`](https://github.com/w3c/webref/releases/tag/%40webref%2Fcss%406.20.8)
 
 ### 1.0.9
 

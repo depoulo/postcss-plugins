@@ -207,7 +207,8 @@ h1.test-custom-selectors:not(.does-not-exist), h2.test-custom-selectors:not(.doe
 	   -moz-border-image: none;
 	     -o-border-image: none;
 	        border-image: none;
-	border-radius: 0;
+	-moz-border-radius: 0;
+	     border-radius: 0;
 	border-spacing: 0;
 	bottom: auto;
 	-webkit-box-shadow: none;
@@ -864,14 +865,10 @@ h1.test-custom-selectors:not(.does-not-exist), h2.test-custom-selectors:not(.doe
 
 .random {
 	color: rgb(
-		115,
-		230,
-		125
+		140,
+		0,
+		85
 	);
 
-	border-color: oklch(
-		85%,
-		40%,
-		96deg
-	);
+	border-color: rgb(228, 112, 176);
 }
